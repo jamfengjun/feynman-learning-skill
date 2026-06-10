@@ -26,6 +26,66 @@ Use the Feynman method as a clarity engine, not a school-note template.
    - Rewrite the explanation for the user's task: learning note, research map, speech, negotiation brief, Q&A, or decision memo.
    - Preserve nuance; do not oversimplify important tradeoffs.
 
+5. **Verify before confidence**
+   - Separate what came from user-provided material, what is general background knowledge, what is inferred, and what must be verified.
+   - For high-stakes or changing domains, verify with current authoritative sources before giving a firm conclusion.
+
+## Anti-Hallucination Protocol
+
+Use this protocol whenever the task touches medicine, law, finance, policy, current technology, company facts, market data, academic claims, or any claim the user may rely on externally.
+
+1. **Classify each important claim**
+   - Fact: directly supported by source material or reliable references.
+   - Interpretation: the agent's explanation of facts.
+   - Assumption: plausible but not yet proven.
+   - Open question: cannot be answered safely without more evidence.
+
+2. **Source discipline**
+   - Prefer the user's original material first.
+   - For current or high-risk facts, use authoritative sources: official documentation, laws/regulations, clinical guidelines, peer-reviewed papers, standards bodies, or primary company filings.
+   - Do not cite a source as supporting a claim unless the source actually supports that claim.
+
+3. **No invention rule**
+   - Do not invent customer cases, revenue, partnerships, clinical results, certifications, policy text, citations, paper findings, or implementation details.
+   - Use "待验证", "假设", "示例占位", or "需要补充证据" instead of filling gaps with confident prose.
+
+4. **Confidence control**
+   - Give confidence levels for research or decision outputs: high, medium, low.
+   - Explain confidence in one sentence: evidence strength, source quality, recency, and whether the claim depends on context.
+
+5. **Feynman gap check**
+   - If an explanation relies on vague phrases such as "显著提升", "行业领先", "临床验证充分", "安全可靠", or "政策支持", ask what metric, comparator, population, date, standard, or source proves it.
+   - If a term cannot be explained plainly, define it or mark it as a gap before using it in conclusions.
+
+## Professional Domains
+
+### Computer Science And AI
+
+When explaining algorithms, systems, models, APIs, or software architecture:
+
+- Split the answer into mechanism, input/output, assumptions, failure modes, and minimal example.
+- For current APIs, libraries, model capabilities, benchmarks, or security guidance, check official docs or primary papers.
+- Distinguish conceptual explanation from production implementation advice.
+- Include edge cases and what would falsify the explanation.
+
+### Medicine And Health AI
+
+When explaining disease, diagnosis, treatment, clinical workflow, medical devices, or health AI:
+
+- Prefer clinical guidelines, consensus statements, systematic reviews, drug labels, or official health agencies.
+- Separate mechanism explanation from clinical recommendation.
+- Use conservative medical AI language: auxiliary screening, trend observation, risk stratification, clinician review, not a replacement for diagnosis or treatment.
+- State when a claim needs validation by clinical study, sample size, population, endpoint, and comparator.
+- Include safety boundaries and referral/doctor-review language when user-facing.
+
+### Cross-Disciplinary Work
+
+For topics like medical AI, digital health, computational biology, health economics, or regulated software:
+
+- Build a two-column map: domain facts on one side, technical claims on the other.
+- Identify translation risks where one field's term may mean something different in the other.
+- Mark regulatory, ethical, data quality, bias, and deployment risks separately from scientific validity.
+
 ## Output Selection
 
 Choose the output shape based on the user's intent.
@@ -52,7 +112,7 @@ Return:
 
 - Research question
 - Current best explanation
-- Evidence map: known, uncertain, missing
+- Evidence map: known, uncertain, missing, source needed
 - Competing hypotheses or viewpoints
 - Terms that need precise definitions
 - What to verify next
@@ -98,10 +158,39 @@ Do not invent facts, customer cases, revenue, certifications, partnerships, or c
 
 - Start from the user's source material when provided; do not replace it with generic theory.
 - Distinguish facts, interpretations, assumptions, and open questions.
+- Treat "simple explanation" as a test of understanding, not permission to remove evidence or uncertainty.
 - Make the explanation shorter only after it is accurate.
 - If a term cannot be explained simply, define it or flag it as a knowledge gap.
 - For Chinese business or formal contexts, default to professional, direct, high-density wording.
 - When the task is external-facing, produce a polished version the user can send or speak from directly.
+
+## Feynman Case Patterns
+
+Use these patterns as examples of the method in action.
+
+### Concept Learning Case
+
+Topic: gradient descent.
+
+- Plain explanation: imagine walking downhill in fog; each step checks which direction lowers the height most.
+- Gap check: if "gradient" cannot be explained, define it as the direction and size of fastest change.
+- Rebuild: connect learning rate, local minima, and over-shooting to the hill-walking example.
+
+### Medical AI Case
+
+Topic: AI tongue image analysis for diabetes management.
+
+- Plain explanation: tongue images may provide auxiliary body-state signals, but blood glucose and HbA1c remain the clinical anchors.
+- Gap check: ask whether there is validated evidence linking image features to outcomes in the target population.
+- Rebuild: position the tool as auxiliary screening or trend observation with clinician review, not independent diagnosis.
+
+### Business Negotiation Case
+
+Topic: hospital pilot for an AI health-management tool.
+
+- Plain explanation: the value is not "AI is advanced"; the value is reducing follow-up workload and finding risk signals earlier.
+- Gap check: prove data security, workflow fit, clinical boundary, and measurable pilot endpoints.
+- Rebuild: ask for a small pilot with agreed metrics before discussing broader procurement.
 
 ## Useful Templates
 
@@ -119,6 +208,22 @@ Do not invent facts, customer cases, revenue, certifications, partnerships, or c
 容易误解的地方：
 
 我还需要确认：
+```
+
+### Evidence Map Template
+
+```markdown
+事实：
+
+解释：
+
+假设：
+
+待验证：
+
+高风险结论：
+
+置信度：
 ```
 
 ### Gap Audit Template

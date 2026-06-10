@@ -1,4 +1,4 @@
 interface:
   display_name: "Feynman Learning"
-  short_description: "用费曼学习法拆解复杂知识并服务研究演讲表达与商务谈判"
+  short_description: "用费曼学习法拆解复杂知识，标注证据边界并支持研究、演讲与谈判"
   default_prompt: "Use $feynman-learning to turn this topic into a clear explanation, research map, talk outline, or negotiation brief."
